@@ -24,6 +24,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //initializing the label list -> eading using bufferreader -> splitting the texts
+        val fileName = "labels.txt"
+        val inputString = application.assets.open(fileName).bufferedReader().use { it.readText() }
+        val labelItem = inputString.split("\n")
+
+
         //setting the image button to intent
         binding.btnSelect.setOnClickListener(View.OnClickListener {
             var intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -51,7 +57,8 @@ class MainActivity : AppCompatActivity() {
             //setting output image----------------------------manual added 2------------------------
 //            binding.textView1.setText(outputFeature0.floatArray[96].toString()) // random index for dummy value
             var maxProbabilityInArray = getMax(outputFeature0.floatArray)   //this is integer value
-            binding.textView1.setText(outputFeature0.floatArray[maxProbabilityInArray].toString())
+//            binding.textView1.setText(outputFeature0.floatArray[maxProbabilityInArray].toString())    // this is an integer value
+            binding.textView1.setText(labelItem[maxProbabilityInArray].toString())  // this is a string value -> final result
             //------------------------------------------------manual added 2------------------------
             // Releases model resources if no longer used.
             model.close()
