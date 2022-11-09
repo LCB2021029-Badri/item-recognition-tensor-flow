@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import com.example.itemrecognizer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,13 +21,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //setting the image button to intent
-        binding.btnSelect.setOnClickListener {
+        binding.btnSelect.setOnClickListener (View.OnClickListener{
             var intent:Intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             startActivityForResult(intent,69)
-        }
+        })
 
-    }
+        //coding functionality for predict
+        binding.btnPredict.setOnClickListener(View.OnClickListener{
+            //resizing the bitmap to the tflite data set image dimensions
+            var resized: Bitmap = Bitmap.createScaledBitmap(bitmap,224,224,true)
+        })
 
     //once the user selects the image change the imageView1 to selected image and to store the image (in bitmap format)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
