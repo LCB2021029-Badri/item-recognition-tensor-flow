@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 //            binding.textView1.setText(outputFeature0.floatArray[96].toString()) // random index for dummy value
             var maxProbabilityInArray = getMax(outputFeature0.floatArray)   //this is integer value
 //            binding.textView1.setText(outputFeature0.floatArray[maxProbabilityInArray].toString())    // this is an integer value
-            binding.textView1.setText(labelItem[maxProbabilityInArray].toString())  // this is a string value -> final result
+            binding.textView1.setText(labelItem[maxProbabilityInArray])  // this is a string value -> final result
             //------------------------------------------------manual added 2------------------------
             // Releases model resources if no longer used.
             model.close()
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         var min = 0.0f
         for(i in 0..1000){
             if(arr[i]>min){
-                index = 1
+                index = i
                 min=arr[i]
             }
         }
