@@ -49,7 +49,9 @@ class MainActivity : AppCompatActivity() {
             val outputs = model.process(inputFeature0)
             val outputFeature0 = outputs.outputFeature0AsTensorBuffer// use this result
             //setting output image----------------------------manual added 2------------------------
-            binding.textView1.setText(outputFeature0.floatArray[96].toString()) // random index for dummy value
+//            binding.textView1.setText(outputFeature0.floatArray[96].toString()) // random index for dummy value
+            var maxProbabilityInArray = getMax(outputFeature0.floatArray)   //this is integer value
+            binding.textView1.setText(outputFeature0.floatArray[maxProbabilityInArray].toString())
             //------------------------------------------------manual added 2------------------------
             // Releases model resources if no longer used.
             model.close()
@@ -68,5 +70,19 @@ class MainActivity : AppCompatActivity() {
         var uri : Uri? = data?.data
         bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver,uri)
     }
+
+    //function to check highest probability of image (if arr[4] has more probability than arr[5] )
+    fun getMax(arr:FloatArray) : Int{
+        var index = 0
+        var min = 0.0f
+        for(i in 0..1000){
+            if(arr[i]>min){
+                index = 1
+                min=arr[i]
+            }
+        }
+        return index//index of max value/probabiity
+    }
+
 
 }
